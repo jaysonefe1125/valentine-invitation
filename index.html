@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Will you be my Valentine? 💕</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Question Page -->
+        <div class="question-page" id="questionPage" role="main" aria-label="Valentine invitation question">
+            <div class="gif-container">
+                <img id="gifImage" src="https://media.tenor.com/gUiu1zyxfzYAAAAi/bear-kiss-bear-kisses.gif" alt="Romantic animated cat couple kissing" class="loaded">
+                <div class="rejection-note" id="rejectionNote" role="alert" aria-live="polite"></div>
+            </div>
+            <h1>Hi Mahal, will you be my Valentine? 🌹</h1>
+            <div class="button-container" id="buttonContainer">
+                <button class="yes-btn" id="yesBtn" aria-label="Accept the Valentine invitation">YES! 🥰</button>
+                <button class="no-btn" id="noBtn" aria-label="Decline the Valentine invitation">No</button>
+            </div>
+        </div>
+
+        <!-- Result Page -->
+        <div class="result-page" id="resultPage" role="main" aria-label="Date planning form">
+            <h2>Yay! I knew you'd say yes! 🎉</h2>
+            <p class="subtitle">Let's plan our date, Mahal! 💕</p>
+
+            <!-- Date Selection -->
+            <div class="date-section" role="region" aria-label="Date selection">
+                <div class="section-title">Pick a day in February 💝</div>
+                <div class="day-headers">
+                    <div class="day-header">Sun</div>
+                    <div class="day-header">Mon</div>
+                    <div class="day-header">Tue</div>
+                    <div class="day-header">Wed</div>
+                    <div class="day-header">Thu</div>
+                    <div class="day-header">Fri</div>
+                    <div class="day-header">Sat</div>
+                </div>
+                <div class="date-grid" id="dateGrid"></div>
+            </div>
+
+            <!-- Time Selection -->
+            <div class="time-section" role="region" aria-label="Time selection">
+                <div class="section-title">Time:</div>
+                <div class="time-selector">
+                    <input type="time" id="timeInput" value="19:00" aria-label="Select time for the date">
+                </div>
+            </div>
+
+            <!-- Snacks Selection -->
+            <div class="snacks-section" role="region" aria-label="Food selection">
+                <div class="section-title">What my Mahal's craving? 🍽️</div>
+                <div class="options-grid" id="snacksGrid" role="group" aria-label="Choose your food preference"></div>
+            </div>
+
+            <!-- Special Request -->
+            <div class="special-request-section" role="region" aria-label="Special requests">
+                <div class="section-title">Special Request? ✨</div>
+                <div class="options-grid" id="specialRequestGrid" role="group" aria-label="Choose a special request"></div>
+            </div>
+
+            <button class="submit-btn" id="submitBtn" aria-label="Submit date preferences">Plan our date! 💕</button>
+        </div>
+
+        <!-- Final Message -->
+        <div class="final-message" id="finalMessage" role="main" aria-label="Date confirmation">
+            <div class="emoji-large" aria-hidden="true">💕💖💕</div>
+            <h2>It's a date!</h2>
+            <p style="font-size: 1.2em; color: #f06292; margin-top: 20px;">Can't wait to spend Valentine's with you! 😊</p>
+        </div>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div class="modal-overlay" id="confirmModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-describedby="modalDesc">
+        <div class="modal-content">
+            <h2 id="modalTitle">Are you sure? 🤔</h2>
+            <p id="modalDesc">You haven't selected the 🔥 option...</p>
+            <div class="modal-buttons">
+                <button class="modal-yes-btn" id="modalYesBtn" aria-label="Confirm submission without the special option">Yes, I'm sure</button>
+                <button class="modal-no-btn" id="modalNoBtn" aria-label="Go back to select the special option">No, let me choose again</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confetti library -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

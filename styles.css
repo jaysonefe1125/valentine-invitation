@@ -1,0 +1,1295 @@
+/* ============================================
+   RESET & BASE STYLES
+   ============================================ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Comic Sans MS', 'Arial', sans-serif;
+    background: linear-gradient(135deg, #ffc3e1 0%, #ffb3d9 50%, #ffa3d1 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* Floating Hearts Background */
+.heart-particle {
+    position: fixed;
+    font-size: 20px;
+    opacity: 0.6;
+    animation: floatHeart 15s linear infinite;
+    pointer-events: none;
+    z-index: 1;
+}
+
+@keyframes floatHeart {
+    0% {
+        transform: translateY(100vh) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.6;
+    }
+    90% {
+        opacity: 0.6;
+    }
+    100% {
+        transform: translateY(-100px) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* ============================================
+   MAIN CONTAINER
+   ============================================ */
+.container {
+    background: white;
+    border-radius: 30px;
+    padding: 40px;
+    box-shadow: 0 20px 60px rgba(255, 105, 180, 0.3);
+    max-width: 500px;
+    width: 100%;
+    text-align: center;
+    position: relative;
+}
+
+/* ============================================
+   PAGE VISIBILITY & TRANSITIONS
+   ============================================ */
+.question-page {
+    display: block;
+    animation: fadeIn 0.5s ease-in;
+}
+
+.result-page {
+    display: none;
+    animation: fadeIn 0.5s ease-in;
+}
+
+.final-message {
+    animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeInPage {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ============================================
+   GIF CONTAINER & REJECTION NOTE
+   ============================================ */
+.gif-container {
+    margin-bottom: 30px;
+    position: relative;
+}
+
+.gif-container img {
+    max-width: 300px;
+    width: 100%;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    transition: opacity 0.5s ease-in;
+}
+
+.gif-container img.loaded {
+    opacity: 1;
+}
+
+/* Loading Spinner */
+.loading-spinner {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    border: 5px solid #ffc3e1;
+    border-radius: 50%;
+    border-top-color: #e91e63;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.rejection-note {
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.75);
+    color: white;
+    padding: 12px 20px;
+    border-radius: 15px;
+    font-size: 1em;
+    font-weight: bold;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    display: none;
+    max-width: 280px;
+    text-align: center;
+    z-index: 100;
+    animation: slideUp 0.4s ease;
+}
+
+.rejection-note.show {
+    display: block;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+}
+
+/* ============================================
+   TYPOGRAPHY
+   ============================================ */
+h1 {
+    color: #e91e63;
+    font-size: 2.5em;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px rgba(233, 30, 99, 0.2);
+}
+
+/* ============================================
+   BUTTONS (YES & NO)
+   ============================================ */
+.button-container {
+    display: flex;
+    gap: 40px;
+    justify-content: center;
+    align-items: center;
+    min-height: 200px;
+    position: relative;
+    padding: 20px;
+}
+
+.yes-btn {
+    background: linear-gradient(135deg, #4CAF50, #45a049);
+    color: white;
+    border: none;
+    padding: 15px 40px;
+    font-size: 1.2em;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: bold;
+    box-shadow: 0 4px 15px rgba(76, 175, 80, 0.4);
+    z-index: 10;
+}
+
+.yes-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(76, 175, 80, 0.6);
+}
+
+.no-btn {
+    background: linear-gradient(135deg, #ff6b9d, #f06292);
+    color: white;
+    border: none;
+    padding: 15px 40px;
+    font-size: 1.2em;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: bold;
+    box-shadow: 0 4px 15px rgba(255, 107, 157, 0.4);
+}
+
+.no-btn.moving {
+    position: absolute;
+}
+
+.no-btn:hover {
+    transform: scale(1.05);
+}
+
+.no-btn.hidden {
+    display: none;
+}
+
+/* ============================================
+   RESULT PAGE HEADER
+   ============================================ */
+.result-page h2 {
+    color: #e91e63;
+    font-size: 2em;
+    margin-bottom: 10px;
+}
+
+.result-page .subtitle {
+    color: #f06292;
+    font-size: 1.2em;
+    margin-bottom: 30px;
+}
+
+/* ============================================
+   SECTIONS (DATE, TIME, SNACKS, REQUESTS)
+   ============================================ */
+.date-section, .time-section, .snacks-section, .special-request-section {
+    margin-bottom: 30px;
+    text-align: left;
+}
+
+.section-title {
+    color: #e91e63;
+    font-size: 1.3em;
+    margin-bottom: 15px;
+    text-align: center;
+    font-weight: bold;
+}
+
+/* ============================================
+   CALENDAR STYLES
+   ============================================ */
+.day-headers {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 8px;
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: #e91e63;
+    font-size: 0.8em;
+}
+
+.day-header {
+    text-align: center;
+    padding: 5px;
+}
+
+.date-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.date-btn {
+    background: white;
+    border: 2px solid #ffc3e1;
+    padding: 10px 5px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: all 0.3s ease;
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.date-btn:hover {
+    background: #ffe0f0;
+    transform: scale(1.1);
+}
+
+.date-btn.selected {
+    background: #e91e63;
+    color: white;
+    border-color: #e91e63;
+}
+
+.date-btn.empty {
+    visibility: hidden;
+}
+
+.date-btn.disabled {
+    background: #f0f0f0;
+    color: #ccc;
+    cursor: not-allowed;
+    border-color: #e0e0e0;
+}
+
+.date-btn.disabled:hover {
+    background: #f0f0f0;
+    transform: none;
+}
+
+/* ============================================
+   TIME SELECTOR
+   ============================================ */
+.time-selector {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.time-selector input {
+    padding: 10px 20px;
+    border: 2px solid #ffc3e1;
+    border-radius: 25px;
+    font-size: 1.1em;
+    text-align: center;
+    color: #e91e63;
+    font-weight: bold;
+}
+
+/* ============================================
+   OPTIONS GRID (SNACKS & SPECIAL REQUESTS)
+   ============================================ */
+.options-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+}
+
+.option-card {
+    background: white;
+    border: 3px solid #ffc3e1;
+    border-radius: 20px;
+    padding: 15px 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.option-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(255, 107, 157, 0.3);
+}
+
+.option-card.selected {
+    border-color: #e91e63;
+    background: #ffe0f0;
+}
+
+.option-card .emoji {
+    font-size: 2.5em;
+    margin-bottom: 8px;
+}
+
+.option-card .label {
+    color: #e91e63;
+    font-size: 0.9em;
+    font-weight: bold;
+}
+
+/* Secret SEX Option - Special Styling */
+.option-card.secret-option {
+    background: linear-gradient(135deg, #ff69b4, #ff1493);
+    border-color: #ff1493;
+    animation: pulse 1.5s ease-in-out infinite, floatCard 2s ease-in-out infinite;
+    box-shadow: 0 5px 20px rgba(255, 20, 147, 0.6);
+}
+
+.option-card.secret-option .emoji {
+    animation: rotate 2s linear infinite;
+}
+
+.option-card.secret-option .label {
+    color: white;
+    font-size: 1.1em;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.option-card.secret-option:hover {
+    transform: translateY(-8px) scale(1.05);
+    box-shadow: 0 8px 25px rgba(255, 20, 147, 0.8);
+}
+
+@keyframes pulse {
+    0%, 100% {
+        box-shadow: 0 5px 20px rgba(255, 20, 147, 0.6);
+    }
+    50% {
+        box-shadow: 0 5px 30px rgba(255, 20, 147, 1);
+    }
+}
+
+@keyframes floatCard {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-5px);
+    }
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    25% {
+        transform: rotate(-10deg);
+    }
+    75% {
+        transform: rotate(10deg);
+    }
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+/* ============================================
+   SPECIAL REQUEST NOTE
+   ============================================ */
+.special-request-note {
+    text-align: center;
+    color: #ff1493;
+    font-size: 0.9em;
+    margin-top: 10px;
+    font-style: italic;
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: opacity 0.3s ease, max-height 0.3s ease;
+}
+
+.special-request-note.show {
+    opacity: 1;
+    max-height: 50px;
+}
+
+/* ============================================
+   POSITION SELECTION (CONDITIONAL)
+   ============================================ */
+.position-selection {
+    margin-top: 20px;
+    padding: 20px;
+    background: linear-gradient(135deg, #ffe0f0, #ffd0e8);
+    border-radius: 20px;
+    border: 3px solid #ff69b4;
+    display: none;
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.5s ease;
+}
+
+.position-selection.show {
+    display: block;
+    opacity: 1;
+    max-height: 1000px;
+    animation: slideDown 0.5s ease;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.position-title {
+    color: #ff1493;
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.position-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+
+.position-btn {
+    background: white;
+    border: 3px solid #ff69b4;
+    border-radius: 15px;
+    padding: 12px 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    font-size: 0.85em;
+    font-weight: bold;
+    color: #ff1493;
+    min-height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.position-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(255, 20, 147, 0.3);
+    background: #fff0f8;
+}
+
+.position-btn.selected {
+    background: linear-gradient(135deg, #ff69b4, #ff1493);
+    color: white;
+    border-color: #ff1493;
+    box-shadow: 0 4px 15px rgba(255, 20, 147, 0.5);
+}
+
+.position-btn.other-btn {
+    background: linear-gradient(135deg, #ffd700, #ffa500);
+    border-color: #ffa500;
+    color: white;
+}
+
+.position-btn.other-btn:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 4px 15px rgba(255, 165, 0, 0.5);
+}
+
+/* Note for Other Position */
+.other-position-note {
+    text-align: center;
+    color: #ffa500;
+    font-size: 0.9em;
+    margin-top: 10px;
+    font-weight: bold;
+    background: rgba(255, 165, 0, 0.1);
+    padding: 8px 15px;
+    border-radius: 10px;
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ============================================
+   CUSTOM INPUT (FOR OTHER OPTION)
+   ============================================ */
+.custom-input-container {
+    margin-top: 15px;
+    display: none;
+}
+
+.custom-input-container.show {
+    display: block;
+}
+
+.custom-input {
+    width: 100%;
+    padding: 12px 20px;
+    border: 3px solid #ffc3e1;
+    border-radius: 25px;
+    font-size: 1em;
+    color: #e91e63;
+    font-weight: bold;
+    text-align: center;
+    font-family: 'Comic Sans MS', 'Arial', sans-serif;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.custom-input:focus {
+    border-color: #e91e63;
+    background: #ffe0f0;
+}
+
+.custom-input::placeholder {
+    color: #f8b3d4;
+}
+
+/* ============================================
+   SUBMIT BUTTON
+   ============================================ */
+.submit-btn {
+    background: linear-gradient(135deg, #e91e63, #f06292);
+    color: white;
+    border: none;
+    padding: 15px 50px;
+    font-size: 1.3em;
+    border-radius: 50px;
+    cursor: pointer;
+    margin-top: 20px;
+    font-weight: bold;
+    box-shadow: 0 4px 15px rgba(233, 30, 99, 0.4);
+    transition: all 0.3s ease;
+}
+
+.submit-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(233, 30, 99, 0.6);
+}
+
+/* ============================================
+   FINAL MESSAGE PAGE
+   ============================================ */
+.final-message {
+    display: none;
+    text-align: center;
+    padding: 20px;
+}
+
+.final-gif {
+    margin-bottom: 20px;
+}
+
+.final-gif img {
+    max-width: 200px;
+    width: 100%;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(255, 105, 180, 0.2);
+}
+
+.final-message h2 {
+    color: #e91e63;
+    font-size: 2.2em;
+    margin-bottom: 30px;
+    font-weight: bold;
+}
+
+.date-details {
+    background: #ffe0f0;
+    padding: 20px;
+    border-radius: 20px;
+    margin: 20px 0;
+    text-align: left;
+}
+
+.detail-row {
+    color: #e91e63;
+    font-size: 1.1em;
+    margin: 10px 0;
+    font-weight: bold;
+}
+
+.detail-row span {
+    color: #666;
+    font-weight: normal;
+}
+
+.final-text {
+    color: #e91e63;
+    font-size: 1.3em;
+    margin: 20px 0;
+    font-weight: bold;
+}
+
+/* ============================================
+   COUNTDOWN TIMER
+   ============================================ */
+.countdown-container {
+    background: linear-gradient(135deg, #ffe0f0, #ffd0e8);
+    border-radius: 20px;
+    padding: 20px;
+    margin: 20px 0;
+    border: 3px solid #ff69b4;
+    box-shadow: 0 5px 20px rgba(255, 105, 180, 0.3);
+}
+
+.countdown-title {
+    color: #e91e63;
+    font-size: 1.3em;
+    font-weight: bold;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.countdown-display {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.countdown-item {
+    background: white;
+    border-radius: 15px;
+    padding: 15px 20px;
+    min-width: 80px;
+    box-shadow: 0 3px 10px rgba(233, 30, 99, 0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 2px solid #ffc3e1;
+}
+
+.countdown-value {
+    color: #e91e63;
+    font-size: 2.5em;
+    font-weight: bold;
+    line-height: 1;
+    font-family: 'Arial', sans-serif;
+}
+
+.countdown-label {
+    color: #f06292;
+    font-size: 0.85em;
+    margin-top: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: bold;
+}
+
+/* Send Response Button */
+.send-response-btn {
+    background: linear-gradient(135deg, #e91e63, #f06292);
+    color: white;
+    border: none;
+    padding: 15px 40px;
+    font-size: 1.2em;
+    border-radius: 50px;
+    cursor: pointer;
+    margin-top: 25px;
+    font-weight: bold;
+    box-shadow: 0 4px 15px rgba(233, 30, 99, 0.4);
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+.send-response-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(233, 30, 99, 0.6);
+}
+
+.send-response-btn:active {
+    transform: scale(0.98);
+}
+
+/* Edit/Back Button */
+.edit-btn {
+    background: linear-gradient(135deg, #9c27b0, #ba68c8);
+    color: white;
+    border: none;
+    padding: 12px 35px;
+    font-size: 1.1em;
+    border-radius: 50px;
+    cursor: pointer;
+    margin-top: 15px;
+    margin-left: 10px;
+    font-weight: bold;
+    box-shadow: 0 4px 15px rgba(156, 39, 176, 0.4);
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+.edit-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(156, 39, 176, 0.6);
+}
+
+.edit-btn:active {
+    transform: scale(0.98);
+}
+
+/* Screenshot Reminder Message */
+.screenshot-reminder {
+    color: #f06292;
+    font-size: 1em;
+    margin-top: 15px;
+    padding: 12px 20px;
+    background: linear-gradient(135deg, #ffe0f0, #fff0f8);
+    border-radius: 20px;
+    border: 2px dashed #ff69b4;
+    font-weight: bold;
+    animation: gentle-pulse 2s ease-in-out infinite;
+}
+
+@keyframes gentle-pulse {
+    0%, 100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.85;
+        transform: scale(1.02);
+    }
+}
+
+/* ============================================
+   AVATAR IMAGES (WITH FLOATING ANIMATION)
+   ============================================ */
+.avatar-container {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.avatar {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 5px solid #e91e63;
+    object-fit: cover;
+    background: #ffc3e1;
+    animation: float 3s ease-in-out infinite;
+}
+
+.avatar:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.avatar:nth-child(2) {
+    animation-delay: 1s;
+}
+
+.avatar:nth-child(3) {
+    animation-delay: 2s;
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+/* ============================================
+   CONFIRMATION MODAL
+   ============================================ */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-overlay.show {
+    display: flex;
+}
+
+.modal-content {
+    background: white;
+    border-radius: 30px;
+    padding: 40px;
+    max-width: 400px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(255, 105, 180, 0.5);
+    animation: modalBounce 0.5s ease;
+    position: relative;
+    min-height: 300px;
+}
+
+@keyframes modalBounce {
+    0% {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+    60% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.modal-content h2 {
+    color: #e91e63;
+    font-size: 2em;
+    margin-bottom: 15px;
+}
+
+.modal-content p {
+    color: #f06292;
+    font-size: 1.2em;
+    margin-bottom: 30px;
+}
+
+.modal-buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    min-height: 100px;
+    position: relative;
+    z-index: 1;
+}
+
+.modal-yes-btn {
+    background: linear-gradient(135deg, #4CAF50, #45a049);
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    font-size: 1.1em;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: bold;
+    box-shadow: 0 4px 15px rgba(76, 175, 80, 0.4);
+    transition: all 0.3s ease;
+}
+
+.modal-yes-btn:hover {
+    transform: scale(1.05);
+}
+
+.modal-no-btn {
+    background: linear-gradient(135deg, #e91e63, #f06292);
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    font-size: 1.1em;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: bold;
+    box-shadow: 0 4px 15px rgba(233, 30, 99, 0.4);
+    transition: all 0.3s ease;
+}
+
+.modal-no-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(233, 30, 99, 0.6);
+}
+
+/* ============================================
+   RESPONSIVE DESIGN (MOBILE)
+   ============================================ */
+@media (max-width: 600px) {
+    body {
+        padding: 10px;
+    }
+
+    .container {
+        padding: 20px 15px;
+        border-radius: 20px;
+    }
+
+    /* Typography */
+    h1 {
+        font-size: 1.6em;
+        margin-bottom: 20px;
+    }
+
+    .result-page h2 {
+        font-size: 1.6em;
+    }
+
+    .result-page .subtitle {
+        font-size: 1em;
+        margin-bottom: 20px;
+    }
+
+    /* GIF Container */
+    .gif-container {
+        margin-bottom: 20px;
+    }
+
+    .gif-container img {
+        max-width: 250px;
+    }
+
+    .rejection-note {
+        font-size: 0.9em;
+        padding: 10px 15px;
+        max-width: 220px;
+        bottom: 10px;
+    }
+
+    /* Button Container */
+    .button-container {
+        gap: 20px;
+        min-height: 150px;
+        padding: 15px;
+    }
+
+    .yes-btn, .no-btn {
+        padding: 12px 30px;
+        font-size: 1em;
+    }
+
+    /* Section Titles */
+    .section-title {
+        font-size: 1.1em;
+        margin-bottom: 12px;
+    }
+
+    /* Calendar */
+    .day-headers {
+        grid-template-columns: repeat(7, 1fr);
+        font-size: 0.65em;
+        gap: 5px;
+    }
+
+    .date-grid {
+        grid-template-columns: repeat(7, 1fr);
+        gap: 5px;
+    }
+
+    .date-btn {
+        padding: 8px 3px;
+        font-size: 0.8em;
+    }
+
+    /* Time Selector */
+    .time-selector input {
+        padding: 8px 15px;
+        font-size: 1em;
+    }
+
+    /* Options Grid */
+    .options-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+
+    .option-card {
+        padding: 12px 8px;
+    }
+
+    .option-card .emoji {
+        font-size: 2em;
+        margin-bottom: 5px;
+    }
+
+    .option-card .label {
+        font-size: 0.8em;
+    }
+
+    /* Position Selection */
+    .position-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+
+    .position-btn {
+        padding: 10px 6px;
+        font-size: 0.8em;
+        min-height: 50px;
+    }
+
+    .position-title {
+        font-size: 1.1em;
+    }
+
+    /* Custom Input */
+    .custom-input {
+        padding: 10px 15px;
+        font-size: 0.9em;
+    }
+
+    /* Submit Button */
+    .submit-btn {
+        padding: 12px 35px;
+        font-size: 1.1em;
+    }
+
+    /* Final Message */
+    .final-message {
+        padding: 15px;
+    }
+
+    .final-message h2 {
+        font-size: 1.8em;
+        margin-bottom: 20px;
+    }
+
+    .final-gif img {
+        max-width: 150px;
+    }
+
+    .date-details {
+        padding: 15px;
+        margin: 15px 0;
+    }
+
+    .detail-row {
+        font-size: 1em;
+        margin: 8px 0;
+    }
+
+    .final-text {
+        font-size: 1.1em;
+        margin: 15px 0;
+    }
+
+    .send-response-btn {
+        padding: 12px 30px;
+        font-size: 1.1em;
+        margin-top: 20px;
+    }
+
+    .edit-btn {
+        padding: 10px 25px;
+        font-size: 1em;
+        margin-top: 12px;
+        margin-left: 5px;
+    }
+
+    .screenshot-reminder {
+        font-size: 0.9em;
+        padding: 10px 15px;
+        margin-top: 12px;
+    }
+
+    /* Countdown Timer */
+    .countdown-container {
+        padding: 15px;
+        margin: 15px 0;
+    }
+
+    .countdown-title {
+        font-size: 1.1em;
+        margin-bottom: 12px;
+    }
+
+    .countdown-display {
+        gap: 10px;
+    }
+
+    .countdown-item {
+        min-width: 60px;
+        padding: 12px 15px;
+    }
+
+    .countdown-value {
+        font-size: 2em;
+    }
+
+    .countdown-label {
+        font-size: 0.75em;
+        margin-top: 6px;
+    }
+
+    /* Avatar Images */
+    .avatar-container {
+        gap: 10px;
+        margin-top: 15px;
+    }
+
+    .avatar {
+        width: 100px;
+        height: 100px;
+        border-width: 3px;
+    }
+
+    /* Modal */
+    .modal-content {
+        padding: 30px 20px;
+        max-width: 320px;
+        min-height: 250px;
+    }
+
+    .modal-content h2 {
+        font-size: 1.6em;
+        margin-bottom: 12px;
+    }
+
+    .modal-content p {
+        font-size: 1em;
+        margin-bottom: 25px;
+    }
+
+    .modal-buttons {
+        gap: 15px;
+        min-height: 80px;
+    }
+
+    .modal-yes-btn, .modal-no-btn {
+        padding: 10px 25px;
+        font-size: 1em;
+    }
+}
+
+/* Additional smaller screen optimization */
+@media (max-width: 380px) {
+    .container {
+        padding: 15px 10px;
+    }
+
+    h1 {
+        font-size: 1.4em;
+    }
+
+    .gif-container img {
+        max-width: 200px;
+    }
+
+    .button-container {
+        gap: 15px;
+        min-height: 120px;
+    }
+
+    .yes-btn, .no-btn {
+        padding: 10px 25px;
+        font-size: 0.95em;
+    }
+
+    .date-btn {
+        font-size: 0.75em;
+        padding: 6px 2px;
+    }
+
+    .options-grid {
+        gap: 8px;
+    }
+
+    .option-card .emoji {
+        font-size: 1.8em;
+    }
+
+    .position-grid {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+
+    .final-message h2 {
+        font-size: 1.5em;
+    }
+
+    .avatar {
+        width: 80px;
+        height: 80px;
+    }
+
+    .edit-btn {
+        padding: 8px 20px;
+        font-size: 0.95em;
+        margin-left: 0;
+        margin-top: 10px;
+        display: block;
+        width: 100%;
+    }
+
+    /* Countdown Timer - Extra Small Screens */
+    .countdown-container {
+        padding: 12px;
+    }
+
+    .countdown-title {
+        font-size: 1em;
+    }
+
+    .countdown-display {
+        gap: 8px;
+    }
+
+    .countdown-item {
+        min-width: 50px;
+        padding: 10px 12px;
+    }
+
+    .countdown-value {
+        font-size: 1.8em;
+    }
+
+    .countdown-label {
+        font-size: 0.7em;
+    }
+}
